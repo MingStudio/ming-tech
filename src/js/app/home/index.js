@@ -1,4 +1,4 @@
-define('home-index', ['.'], function(app){
+define('home-index', ['app'], function(app){
     'use strict';
 
     app.controller('HomeCtrl', function ($scope, config) {

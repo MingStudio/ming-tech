@@ -34,95 +34,61 @@ define('app', ['angular', 'angular-bootstrap'], function(angular, angularBootstr
     /**
      * Header Directive
      */
-    angular.module('app.directives.header', []).
-        controller('HeaderCtrl', function ($scope, config) {
-            var modules = config.modules;
-
-            this.getConfig = function () {
-                return config;
-            };
-
-            this.getModule = function (key) {
-                for (var i = 0; i < modules.length; i++) {
-                    if (angular.equals(angular.lowercase(modules[i].key), angular.lowercase(key))) {
-                        return modules[i];
-                    }
-                }
-            }
-        }).
-        directive('headerBody', function () {
+    angular.module('app.directives.header', ['app.config']).
+        //controller('HeaderCtrl', function ($scope, config) {
+        //    var modules = config.modules;
+        //
+        //    this.getConfig = function () {
+        //        return config;
+        //    };
+        //
+        //    this.getModule = function (key) {
+        //        for (var i = 0; i < modules.length; i++) {
+        //            if (angular.equals(angular.lowercase(modules[i].key), angular.lowercase(key))) {
+        //                return modules[i];
+        //            }
+        //        }
+        //    }
+        //}).
+        directive('headerBody', function (config) {
             return {
                 restrict: 'AE',
                 replace: true,
-                transclude: true,
                 templateUrl: 'template/header-body.html',
                 scope: {
-                    moduleKey: '@',
-                    fixed: '@'
+                    moduleKey: '@'
                 },
-                controller: 'HeaderCtrl',
-                link: function (scope, element, attrs, headerCtrl) {
+                link: function (scope, element, attrs) {
                     if (angular.isUndefined(scope.moduleKey)) {
-                        scope.title = headerCtrl.getConfig().siteTitle;
+                        scope.title = config.siteTitle;
                     }
                     else {
-                        var module = headerCtrl.getModule(scope.moduleKey);
-                        scope.title = module.name;
-                        scope.desc = module.desc;
+                        //var module = headerCtrl.getModule(scope.moduleKey);
+                        //scope.title = module.name;
+                        //scope.desc = module.desc;
                     }
-                }
-            };
-        }).
-        directive('headerMenus', function () {
-            return {
-                restrict: 'AE',
-                replace: true,
-                require: '^headerBody',
-                template: function (element) {
-                    var menusHtml =
-                        '<nav>\n' +
-                        '   <a class="navbar-brand" ng-href="{{siteRootUri}}">{{siteTitle}}</a>\n' +
-                        '   <ul class="nav navbar-nav">\n' +
-                        '       <li class="dropdown" dropdown>\n' +
-                        '           <span role="button" class="dropdown-toggle" dropdown-toggle>\n' +
-                        '               Modules <b class="caret"></b>\n' +
-                        '           </span>\n' +
-                        '           <ul class="dropdown-menu">\n' +
-                        '               <li ng-repeat="module in modules">\n' +
-                        '                   <a ng-href="{{module.src}}">{{module.name}}</a>\n' +
-                        '               </li>\n' +
-                        '           </ul>\n' +
-                        '       </li>\n';
 
-                    angular.forEach(element.children(), function (item) {
-                        menusHtml += item.outerHTML;
-                    });
-
-                    menusHtml +=
-                        '       <li><a href="https://github.com/mingezhao/MyTechnologies" target="_blank"><i class="fa fa-github"></i>&nbsp;Git Hub</a></li>\n' +
-                        '   </ul>\n' +
-                        '</nav>\n';
-
-                    return menusHtml;
-                },
-                link: function (scope, element, attrs, headerCtrl) {
-                    var config = headerCtrl.getConfig();
                     scope.modules = config.modules;
-                    scope.siteTitle = config.siteTitle;
-                    scope.siteRootUri = config.siteRootUri;
                 }
             };
         }).
         run(function ($templateCache) {
             $templateCache.put('template/header-body.html',
                 '<div role="header">\n' +
-                '   <header class="navbar navbar-default" ng-class="{\'navbar-fixed-top\':fixed, \'bs-header-no-margin-bottom\':!fixed}">\n' +
+                '   <header class="navbar navbar-default">\n' +
                 '       <div class="navbar-inner">\n' +
-                '           <div class="container" ng-transclude>\n' +
+                '           <div class="container">\n' +
+                                '<nav>\n' +
+                '                   <a class="navbar-brand" ng-href="{{siteRootUri}}">{{siteTitle}}</a>\n' +
+                '                   <ul class="nav navbar-nav">\n' +
+                '                       <li ng-repeat="module in modules">\n' +
+                '                           <a ng-href="module.src">{{module.name}}</a>' +
+                '                       </li>\n' +
+                '                   </ul>\n' +
                 '           </div>\n' +
                 '       </div>\n' +
                 '   </header>' +
-                '   <header class="bs-header text-center" ng-class="{\'bs-header-margin-top\':fixed}">\n' +
+                '   <header class="bs-header text-center">\n' +
                 '       <div class="container">\n' +
                 '           <h1>{{title}}</h1>\n' +
                 '           <p>{{desc}}</p>\n' +
@@ -138,7 +104,7 @@ define('app', ['angular', 'angular-bootstrap'], function(angular, angularBootstr
     angular.module('app.directives.footer', []).
         directive('footerBody', function () {
             return {
-                restrict: 'E',
+                restrict: 'AE',
                 replace: true,
                 templateUrl: 'template/footer-body.html'
             };

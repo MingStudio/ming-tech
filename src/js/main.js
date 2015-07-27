@@ -1,6 +1,4 @@
 (function(){
-    var rootUrl = '/ming-tech/src/';
-
     var getCurrentModule = function(){
         var
             pageName, moduleName,
