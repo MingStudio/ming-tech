@@ -1,7 +1,9 @@
-define('home-index', ['app'], function(app){
+define('home-index', ['.'], function(app){
     'use strict';
 
     app.controller('HomeCtrl', function ($scope, config) {
         $scope.modules = config.modules;
     });
+
+    return app;
 });

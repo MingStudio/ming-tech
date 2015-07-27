@@ -6,7 +6,7 @@ define('app', ['angular', 'angular-bootstrap'], function(angular, angularBootstr
      */
     angular.module('app.config', []).
         constant('config', {
-            siteTitle: 'My Technologies',
+            siteTitle: 'Tech',
             siteRootUri: '../home/index.html',
             modules: [
                 {
