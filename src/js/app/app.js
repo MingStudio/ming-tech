@@ -7,23 +7,32 @@ define('app', ['angular', 'angular-bootstrap'], function (angular, angularBootst
     angular.module('app.config', []).
         constant('config', {
             siteTitle: 'Tech',
-            siteRootUri: '../home/index.html',
+            siteRootUri: '../home',
             modules: [
                 {
                     order: 1,
                     key: 'angular',
                     name: 'AngularJS',
-                    src: '../angular/index.html'
+                    src: '../angular'
                     //desc: 'AngularJS是一款优秀的前端JS框架，它有很多优秀的特性如：MVVM、模块化、自动双向数据绑定、语义化标签、依赖注入等等'
                 },
                 {
                     order: 2,
-                    key: 'Icons',
+                    key: 'icons',
                     name: 'Icons',
-                    src: '/icons/index.html',
+                    src: '../icons',
                     desc: 'Glyphicons & Font Awesome'
                 }
             ]
+        }).
+        service('configService', function(config){
+            this.getModule = function(key){
+                for (var i = 0; i < config.modules.length; i++) {
+                    if (angular.equals(angular.lowercase(config.modules[i].key), angular.lowercase(key))) {
+                        return config.modules[i];
+                    }
+                }
+            };
         });
 
     /**
@@ -35,22 +44,7 @@ define('app', ['angular', 'angular-bootstrap'], function (angular, angularBootst
      * Header Directive
      */
     angular.module('app.directives.header', ['app.config']).
-        //controller('HeaderCtrl', function ($scope, config) {
-        //    var modules = config.modules;
-        //
-        //    this.getConfig = function () {
-        //        return config;
-        //    };
-        //
-        //    this.getModule = function (key) {
-        //        for (var i = 0; i < modules.length; i++) {
-        //            if (angular.equals(angular.lowercase(modules[i].key), angular.lowercase(key))) {
-        //                return modules[i];
-        //            }
-        //        }
-        //    }
-        //}).
-        directive('headerBody', function (config) {
+        directive('headerBody', function (config, configService) {
             return {
                 restrict: 'AE',
                 replace: true,
@@ -63,11 +57,13 @@ define('app', ['angular', 'angular-bootstrap'], function (angular, angularBootst
                         scope.title = config.siteTitle;
                     }
                     else {
-                        //var module = headerCtrl.getModule(scope.moduleKey);
-                        //scope.title = module.name;
-                        //scope.desc = module.desc;
+                        var module = configService.getModule(scope.moduleKey);
+                        scope.title = module.name;
+                        scope.desc = module.desc;
                     }
 
+                    scope.siteRootUri = config.siteRootUri;
+                    scope.siteTitle = config.siteTitle;
                     scope.modules = config.modules;
                 }
             };
@@ -75,17 +71,19 @@ define('app', ['angular', 'angular-bootstrap'], function (angular, angularBootst
         run(function ($templateCache) {
             $templateCache.put('template/header-body.html',
                 '<div role="header">\n' +
-                '   <header class="navbar navbar-default">\n' +
-                '       <div class="navbar-inner">\n' +
-                '           <div class="container">\n' +
-                '<nav>\n' +
-                '                   <a class="navbar-brand" ng-href="{{siteRootUri}}">{{siteTitle}}</a>\n' +
-                '                   <ul class="nav navbar-nav">\n' +
-                '                       <li ng-repeat="module in modules">\n' +
-                '                           <a ng-href="module.src">{{module.name}}</a>' +
-                '                       </li>\n' +
-                '                   </ul>\n' +
-                '           </div>\n' +
+                '   <header class="navbar navbar-default bs-nav">\n' +
+                '       <div class="container">\n' +
+                '           <nav>\n' +
+                '               <a class="navbar-brand" ng-href="{{siteRootUri}}">{{siteTitle}}</a>\n' +
+                '               <ul class="nav navbar-nav">\n' +
+                '                   <li ng-repeat="module in modules" ng-class="{true:\'active\'}[module.key == moduleKey]">\n' +
+                '                       <a ng-href="{{module.src}}">{{module.name}}</a>' +
+                '                   </li>\n' +
+                '               </ul>\n' +
+                '               <ul class="nav navbar-nav navbar-right">\n' +
+                '                   <li><a href="https://github.com/mingstudio/ming-tech" target="_blank"><i class="fa fa-github"></i>&nbsp;Git Hub</a></li>' +
+                '               </ul>\n' +
+                '           </nav>\n' +
                 '       </div>\n' +
                 '   </header>' +
                 '   <header class="bs-header text-center">\n' +
@@ -212,8 +210,8 @@ define('app', ['angular', 'angular-bootstrap'], function (angular, angularBootst
         }).
         run(function ($templateCache) {
             $templateCache.put('template/side-menu.html',
-                '<nav class="bs-docs-sidebar" bs-affix>\n' +
-                '   <ul class="nav bs-docs-sidenav">\n' +
+                '<nav class="bs-sidebar" bs-affix>\n' +
+                '   <ul class="nav bs-sidenav">\n' +
                 '       <li ng-repeat="menu in menuRoot.items">\n' +
                 '           <a ng-href="#{{menu.id}}" ng-click="active($event, menu)">{{menu.name}}</a>\n' +
                 '           <ul class="nav" ng-if="menu.items.length > 0">' +

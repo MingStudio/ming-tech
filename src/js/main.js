@@ -7,7 +7,12 @@
 
         if (lastItem.indexOf('.') == -1) {
             pageName = 'index';
-            moduleName = urlParts[urlParts.length - 1];
+            if(lastItem == ''){
+                moduleName =  urlParts[urlParts.length - 2];
+            }
+            else{
+                moduleName = urlParts[urlParts.length - 1];
+            }
         }
         else {
             pageName = lastItem.substr(0, lastItem.indexOf('.'));

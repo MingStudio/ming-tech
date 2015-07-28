@@ -14,7 +14,8 @@
     "angular": "~1.4.3",
     "angular-bootstrap": "~0.13.1",
     "font-awesome": "~4.3.0",
-    "requirejs": "~2.1.19"
+    "requirejs": "~2.1.19",
+    "bootstrap": "~3.3.5"
   },
   "exportsOverride": {
     "bootstrap": {
