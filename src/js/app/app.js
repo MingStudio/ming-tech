@@ -1,4 +1,4 @@
-define('app', ['angular', 'angular-bootstrap'], function (angular, angularBootstrap) {
+define('app', ['angular', 'angular-bootstrap', 'angular-highlightjs'], function (angular) {
     'use strict';
 
     /**
@@ -228,5 +228,5 @@ define('app', ['angular', 'angular-bootstrap'], function (angular, angularBootst
     /**
      * Init app for each page
      */
-    return angular.module('app', ['ui.bootstrap', 'app.config', 'app.directives']);
+    return angular.module('app', ['ui.bootstrap', 'app.config', 'app.directives', 'hljs']);
 });

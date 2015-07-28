@@ -29,13 +29,21 @@
             //    'http://cdn.bootcss.com/jquery/2.1.4/jquery.min',
             //    'jquery/jquery'
             //],
-            angular: [
+            'angular': [
                 'http://cdn.bootcss.com/angular.js/1.4.3/angular.min',
                 '../lib/angular/angular'
             ],
             'angular-bootstrap': [
                 'http://cdn.bootcss.com/angular-ui-bootstrap/0.13.1/ui-bootstrap-tpls.min',
                 '../lib/angular-bootstrap/ui-bootstrap-tpls'
+            ],
+            'highlight.js':[
+                'http://cdn.bootcss.com/highlight.js/8.6/highlight.min',
+                '../lib/highlightjs/highlightjs'
+            ],
+            'angular-highlightjs':[
+                'http://cdn.bootcss.com/angular-highlightjs/0.4.1/angular-highlightjs.min',
+                '../lib/angular-highlightjs/angular-highlightjs'
             ]
         },
         shim: {
