@@ -39,10 +39,10 @@
             ],
             'highlight.js':[
                 'http://cdn.bootcss.com/highlight.js/8.6/highlight.min',
-                '../lib/highlightjs/highlightjs'
+                '../lib/highlightjs/highlightjs.pack'
             ],
             'angular-highlightjs':[
-                'http://cdn.bootcss.com/angular-highlightjs/0.4.1/angular-highlightjs.min',
+                'http://cdn.bootcss.com/angular-highlightjs/0.4.3/angular-highlightjs',
                 '../lib/angular-highlightjs/angular-highlightjs'
             ]
         },
