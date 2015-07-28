@@ -1,24 +1,24 @@
-(function(){
-    var getCurrentModule = function(){
+(function () {
+    var getCurrentModule = function () {
         var
             pageName, moduleName,
             urlParts = window.location.pathname.split('/'),
-            lastItem = urlParts[urlParts.length-1];
+            lastItem = urlParts[urlParts.length - 1];
 
-        if(lastItem.indexOf('.') == -1){
+        if (lastItem.indexOf('.') == -1) {
             pageName = 'index';
-            moduleName = urlParts[urlParts.length -1];
+            moduleName = urlParts[urlParts.length - 1];
         }
-        else{
+        else {
             pageName = lastItem.substr(0, lastItem.indexOf('.'));
-            moduleName = urlParts[urlParts.length -2];
+            moduleName = urlParts[urlParts.length - 2];
         }
 
-        return moduleName+ '-'+pageName;
+        return moduleName.toLowerCase() + '-' + pageName.toLowerCase();
     };
 
     requirejs.config({
-        baseUrl: '../js',
+        baseUrl: '../js/app',
         paths: {
             //jquery: [
             //    'http://cdn.bootcss.com/jquery/2.1.4/jquery.min',
@@ -26,15 +26,12 @@
             //],
             angular: [
                 'http://cdn.bootcss.com/angular.js/1.4.3/angular.min',
-                'lib/angular/angular'
+                '../lib/angular/angular'
             ],
             'angular-bootstrap': [
                 'http://cdn.bootcss.com/angular-ui-bootstrap/0.13.1/ui-bootstrap-tpls.min',
-                'lib/angular-bootstrap/ui-bootstrap-tpls'
-            ],
-            app: 'app',
-            'home-index': 'app/home/index',
-            'angular-index':'app/angular/index'
+                '../lib/angular-bootstrap/ui-bootstrap-tpls'
+            ]
         },
         shim: {
             angular: {
@@ -47,6 +44,9 @@
         }
     });
 
-    requirejs([getCurrentModule()]);
+    requirejs(['angular',getCurrentModule()], function(angular, app){
+        // Start angular by manual
+        angular.bootstrap(document, [app.name]);
+    });
 })();
 

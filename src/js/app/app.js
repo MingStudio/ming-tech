@@ -1,4 +1,4 @@
-define('app', ['angular', 'angular-bootstrap'], function(angular, angularBootstrap){
+define('app', ['angular', 'angular-bootstrap'], function (angular, angularBootstrap) {
     'use strict';
 
     /**
@@ -78,7 +78,7 @@ define('app', ['angular', 'angular-bootstrap'], function(angular, angularBootstr
                 '   <header class="navbar navbar-default">\n' +
                 '       <div class="navbar-inner">\n' +
                 '           <div class="container">\n' +
-                                '<nav>\n' +
+                '<nav>\n' +
                 '                   <a class="navbar-brand" ng-href="{{siteRootUri}}">{{siteTitle}}</a>\n' +
                 '                   <ul class="nav navbar-nav">\n' +
                 '                       <li ng-repeat="module in modules">\n' +
@@ -179,8 +179,8 @@ define('app', ['angular', 'angular-bootstrap'], function(angular, angularBootstr
                             el = angular.element(event.target),
                             activeEls = sideMenuService.getActiveMenuEls();
 
-                        for(var i=0;i<activeEls.length;i++){
-                            var item  = activeEls[i];
+                        for (var i = 0; i < activeEls.length; i++) {
+                            var item = activeEls[i];
                             if (item.level >= menu.level) {
                                 item.el.removeClass('active');
                                 activeEls.splice(i, 1);
@@ -230,14 +230,5 @@ define('app', ['angular', 'angular-bootstrap'], function(angular, angularBootstr
     /**
      * Init app for each page
      */
-    var app = angular.module('app', ['ui.bootstrap', 'app.config', 'app.directives']);
-
-    /**
-     * Start angular after document ready
-     * */
-    angular.element(document).ready(function () {
-        angular.bootstrap(document, ['app']);
-    });
-
-    return app;
+    return angular.module('app', ['ui.bootstrap', 'app.config', 'app.directives']);
 });
