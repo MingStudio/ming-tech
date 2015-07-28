@@ -37,12 +37,12 @@
                 'http://cdn.bootcss.com/angular-ui-bootstrap/0.13.1/ui-bootstrap-tpls.min',
                 '../lib/angular-bootstrap/ui-bootstrap-tpls'
             ],
-            'highlight.js':[
+            'hljs':[
                 'http://cdn.bootcss.com/highlight.js/8.6/highlight.min',
                 '../lib/highlightjs/highlightjs.pack'
             ],
-            'angular-highlightjs':[
-                'http://cdn.bootcss.com/angular-highlightjs/0.4.3/angular-highlightjs',
+            'angular-hljs':[
+                'http://cdn.bootcss.com/angular-highlightjs/0.4.1/angular-highlightjs',
                 '../lib/angular-highlightjs/angular-highlightjs'
             ]
         },
@@ -53,6 +53,10 @@
             'angular-bootstrap': {
                 deps: ['angular'],
                 exports: 'angular-bootstrap'
+            },
+            'angular-hljs':{
+                deps: ['hljs'],
+                exports: 'angular-hljs'
             }
         }
     });

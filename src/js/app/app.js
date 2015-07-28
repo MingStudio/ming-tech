@@ -1,4 +1,4 @@
-define('app', ['angular', 'angular-bootstrap', 'angular-highlightjs'], function (angular) {
+define('app', ['angular', 'angular-bootstrap', 'angular-hljs'], function (angular) {
     'use strict';
 
     /**

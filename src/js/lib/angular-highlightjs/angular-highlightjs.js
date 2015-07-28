@@ -1,20 +1,16 @@
 /*! angular-highlightjs
-version: 0.4.3
-build date: 2015-07-28
+version: 0.4.1
+build date: 2015-02-03
 author: Chih-Hsuan Fan
 https://github.com/pc035860/angular-highlightjs.git */
 
-(function (root, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["angular", "highlight.js"], factory);
-  } else if (typeof module === "object" && module.exports) {
-    module.exports = factory(require("angular"), require("highlight.js"));
-  } else {
-    root.returnExports = factory(root.angular, root.hljs);
-  }
-}(this, function (angular, hljs) {
+/* commonjs package manager support (eg componentjs) */
+if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
+  module.exports = 'hljs';
+}
 
-/*global angular, hljs*/
+(function (window, angular, undefined) {
+/*global angular*/
 
 function shouldHighlightStatics(attrs) {
   var should = true;
@@ -27,6 +23,7 @@ function shouldHighlightStatics(attrs) {
   });
   return should;
 }
+
 
 var ngModule = angular.module('hljs', []);
 
@@ -43,10 +40,10 @@ ngModule.provider('hljsService', function () {
     getOptions: function () {
       return angular.copy(_hljsOptions);
     },
-    $get: function () {
-      (hljs.configure || angular.noop)(_hljsOptions);
-      return hljs;
-    }
+    $get: ['$window', function ($window) {
+      ($window.hljs.configure || angular.noop)(_hljsOptions);
+      return $window.hljs;
+    }]
   };
 });
 
@@ -380,6 +377,4 @@ ngModule
 .directive('language', languageDirFactory('language'))
 .directive('source', sourceDirFactory('source'))
 .directive('include', includeDirFactory('include'));
-
-  return "hljs";
-}));
+})(window, window.angular);
