@@ -7,6 +7,7 @@
 
     <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/site.css"/>
 </head>
 <body>
@@ -29,12 +30,14 @@
 
                 <p>如果HTML模板中有某个标签有<code>ng-app</code>属性，那么当DOM树建立成功后， AngularJS就会自动进入引导过程，启动整个框架。</p>
 
+                <div class="highlight" hljs source="'<html><head><body></body></head></html>'" language="perl"></div>
+
                 <h2 side-menu-level="2">手动引导</h2>
 
                 <p>在大多数情况下，我们都使用<code>ng-app</code>指令来进行自动引导启动，另外也可以使用<code>angular.bootstrap()</code>方法进行手动引导。</p>
 
-                <div class="highlight">
-                </div>
+                <div hljs include="'../home/index.html'" language="xml"></div>
+
                 <h2 side-menu-level="2">手动引导：运用场景</h2>
 
                 <p>如果一个HTML文件中有多个<code>ng-app</code>，AngularJS只会自动引导启动它找到的第一个<code>ng-app</code>应用，这时需要手动引导。</p>
