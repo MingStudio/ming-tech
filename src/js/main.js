@@ -55,7 +55,7 @@
                 exports: 'angular-bootstrap'
             },
             'angular-hljs':{
-                deps: ['hljs'],
+                deps: ['angular', 'hljs'],
                 exports: 'angular-hljs'
             }
         }
