@@ -27,7 +27,7 @@ define('angular-index', ['app'], function(app){
             '   ...\n' +
             '   <script>\n' +
             '       angular.element(document).ready(function(){\n' +
-            '           angular.bootstrap(document, [\'demoApp\'])\n' +
+            '           angular.bootstrap(document, [\'demoApp\']);\n' +
             '       });\n' +
             '   </script>\n' +
             '</body>\n' +
